@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
+import { UserOptions } from '../../interfaces/user-option';
+import { UserDataProvider } from '../../providers/user-data/user-data';
+import { NgForm } from '@angular/forms';
+import { TabsPage } from '../tabs/tabs';
+import { SignupPage } from '../signup/signup';
 
 /**
  * Generated class for the LoginPage page.
@@ -14,12 +19,19 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'login.html',
 })
 export class LoginPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  login: UserOptions = { username: '', password: '' };
+  submitted = false;
+  constructor(public navCtrl: NavController, public userData: UserDataProvider) {
   }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
+  onLogin(form: NgForm) {
+    this.submitted = true;
+    if (form.valid) {
+      this.userData.login(this.login.username);
+      this.navCtrl.push(TabsPage);
+    }
+  }
+  onSignup() {
+    this.navCtrl.push(SignupPage);
   }
 
 }

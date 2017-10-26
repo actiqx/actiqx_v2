@@ -1,5 +1,10 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component,OnInit } from '@angular/core';
+import { IonicPage, NavController } from 'ionic-angular';
+
+import { NgForm } from '@angular/forms';
+import { TabsPage } from '../tabs/tabs';
+import { UserDataProvider } from '../../providers/user-data/user-data';
+import { SignUpOptions } from '../../interfaces/signup-option';
 
 /**
  * Generated class for the SignupPage page.
@@ -13,13 +18,21 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   selector: 'page-signup',
   templateUrl: 'signup.html',
 })
-export class SignupPage {
+export class SignupPage implements OnInit {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  signup: SignUpOptions={ username: '', password: '' };
+  submitted = false;
+
+  constructor(public navCtrl: NavController, public userData: UserDataProvider) {}
+
+  ngOnInit(){
+   
   }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SignupPage');
+  onSignup(form: NgForm) {
+    this.submitted = true;
+    if (form.valid) {
+      this.userData.signup(this.signup.username);
+      this.navCtrl.push(TabsPage);
+    }
   }
-
 }

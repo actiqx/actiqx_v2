@@ -1,14 +1,21 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar  no-border-bottom>
+      <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+        </button>
     <ion-title>
       Actiqx
     </ion-title>
   </ion-navbar>
+  <ion-toolbar no-border-top>
+      <ion-searchbar color="primary"
+                     [(ngModel)]="queryText"
+                     (ionInput)="updatedashboard()"
+                     placeholder="Search">
+      </ion-searchbar>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+ 
 </ion-content>

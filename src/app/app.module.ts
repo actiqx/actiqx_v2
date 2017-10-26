@@ -16,7 +16,7 @@ import { LoginPage } from '../pages/login/login';
 import { AccountPage } from '../pages/account/account';
 import { SignupPage } from '../pages/signup/signup';
 import { SupportPage } from '../pages/support/support';
-import { Storage,IonicStorageModule } from '@ionic/storage';
+import { IonicStorageModule } from '@ionic/storage';
 
 
 @NgModule({
