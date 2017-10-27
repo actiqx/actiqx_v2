@@ -1,5 +1,5 @@
 export type geoLocation={
-    address: string,
+    place: string,
     latitude: any,
     longitude: any
 }

@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ModalController } from 'ionic-angular';
+import { AutocompletePage } from '../autocomplete/autocomplete';
+import { Posttask } from '../../interfaces/posttask';
+import { NgForm } from '@angular/forms';
 
 /**
  * Generated class for the PosttaskPage page.
@@ -13,12 +16,25 @@ import { NavController, NavParams } from 'ionic-angular';
   templateUrl: 'posttask.html',
 })
 export class PosttaskPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  posttask:Posttask={info:"",categories:"",address:{place:'',latitude:'',longitude:''},myDate:''};
+  submitted:false;
+  constructor(public navCtrl: NavController, public navParams: NavParams,private ModalCtrl:ModalController) {
+    
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PosttaskPage');
+  }
+  showAddressModal () {
+    let modal = this.ModalCtrl.create(AutocompletePage);
+    
+    modal.onDidDismiss(data => {
+      this.posttask.address.place = data;
+    });
+    modal.present();
+  }
+  onPosttask(form:NgForm){
+
   }
 
 }

@@ -7,6 +7,9 @@
 <ion-header>
 
   <ion-navbar>
+      <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+        </button>
     <ion-title>posttask</ion-title>
   </ion-navbar>
 
@@ -14,5 +17,39 @@
 
 
 <ion-content padding>
+    <form #posttaskForm="ngForm" novalidate>
+        <ion-list >
+            <ion-item>
+              <ion-label stacked color="primary">Information</ion-label>
+              <ion-input [(ngModel)]="posttask.info" name="info" type="text" #info="ngModel" required>
+              </ion-input>
+            </ion-item>
+            <p ion-text [hidden]="posttask.info || submitted == false" color="danger" padding-left>
+                Information is required
+            </p>
+            <ion-item>
+                <ion-label stacked color="primary">Category</ion-label>
+                <ion-input [(ngModel)]="posttask.categories" name="categories" type="text" #info="ngModel" required>
+                </ion-input>
+              </ion-item>
+              <p ion-text [hidden]="posttask.categories || submitted == false" color="danger" padding-left>
+                  Category is required
+              </p>
+              <ion-item>
+                  <ion-label stacked color="primary">Date</ion-label>
+                  <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="posttask.myDate" name="myDate"></ion-datetime>
+                </ion-item>
+                  <ion-item >
+                      <ion-label stacked color="primary">Location</ion-label>
+                    <ion-input (click)="showAddressModal()" [(ngModel)]="posttask.address.place"type="text" placeholder="Pick an address" name="autocomplete">              </ion-input>
+                  </ion-item>
+                 
+                  
+               
 
+            </ion-list>
+            <div padding>
+                <button ion-button (click)="onPosttask(signupForm)" type="submit" block>Create</button>
+              </div>
+    </form>
 </ion-content>

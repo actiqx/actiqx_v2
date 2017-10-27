@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
+import { HttpModule } from '@angular/http';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -17,6 +18,8 @@ import { AccountPage } from '../pages/account/account';
 import { SignupPage } from '../pages/signup/signup';
 import { SupportPage } from '../pages/support/support';
 import { IonicStorageModule } from '@ionic/storage';
+import { AppDataProvider } from '../providers/app-data/app-data';
+import { AutocompletePage } from '../pages/autocomplete/autocomplete';
 
 
 @NgModule({
@@ -30,10 +33,13 @@ import { IonicStorageModule } from '@ionic/storage';
     LoginPage,
     AccountPage,
     SignupPage,
-    SupportPage
+    SupportPage,
+    AutocompletePage
+
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     IonicModule.forRoot(Actiqx,{},{
       links: [
         { component: TabsPage, name: 'TabsPage', segment: 'tabs-page' },
@@ -56,7 +62,8 @@ import { IonicStorageModule } from '@ionic/storage';
     LoginPage,
     AccountPage,
     SignupPage,
-    SupportPage
+    SupportPage,
+    AutocompletePage
   ],
   providers: [
     StatusBar,
@@ -64,7 +71,9 @@ import { IonicStorageModule } from '@ionic/storage';
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     UserDataProvider,
     DashboardDataProvider,
-    InAppBrowser
+    InAppBrowser,
+   
+    AppDataProvider
   ]
 })
 export class AppModule { }
