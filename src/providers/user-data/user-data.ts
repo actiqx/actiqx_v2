@@ -1,8 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 
 import 'rxjs/add/operator/map';
-import { Events } from 'ionic-angular';
+import { Events, List } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
+import { AppDataProvider } from '../app-data/app-data';
+import { MY_CONFIG_TOKEN, ApplicationConfig } from '../../util/app-Config';
+import { UserOptions, UserResponse } from '../../interfaces/user-option';
+import { Observable } from 'rxjs/Observable';
 
 /*
   Generated class for the UserDataProvider provider.
@@ -12,10 +16,12 @@ import { Storage } from '@ionic/storage';
 */
 @Injectable()
 export class UserDataProvider {
+  public _token:any;
   _favorites: string[] = [];
   HAS_LOGGED_IN = 'hasLoggedIn';
   constructor(
-   
+   public appdata:AppDataProvider,
+   @Inject(MY_CONFIG_TOKEN) private config:ApplicationConfig,
     public events: Events,
     public storage: Storage
   ) { }
@@ -34,10 +40,21 @@ export class UserDataProvider {
       this._favorites.splice(index, 1);
     }
   };
-  login(username: string): void {
-    this.storage.set(this.HAS_LOGGED_IN, true);
-    this.setUsername(username);
-    this.events.publish('user:login');
+  login(login:UserOptions) {
+    this.appdata.post(this.config.apiEndpoint+this.config.login,JSON.stringify(login) )
+
+    .subscribe(res=>{
+     this._token=res.json;
+    })
+    if(this._token!= null){
+      this.storage.set(this.HAS_LOGGED_IN, true);
+      this.setUsername(login.username);
+      this.events.publish('user:login');
+    }
+    
+   return this._token;
+    
+    
   };
 
   signup(username: string): void {

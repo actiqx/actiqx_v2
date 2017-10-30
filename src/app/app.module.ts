@@ -20,6 +20,10 @@ import { SupportPage } from '../pages/support/support';
 import { IonicStorageModule } from '@ionic/storage';
 import { AppDataProvider } from '../providers/app-data/app-data';
 import { AutocompletePage } from '../pages/autocomplete/autocomplete';
+import { SearchProvider } from '../providers/search/search';
+import { TaskProvider } from '../providers/task/task';
+import { MY_CONFIG_TOKEN, MY_CONFIG } from '../util/app-Config';
+
 
 
 @NgModule({
@@ -69,11 +73,13 @@ import { AutocompletePage } from '../pages/autocomplete/autocomplete';
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
+    {provide:MY_CONFIG_TOKEN,useValue:MY_CONFIG},
     UserDataProvider,
     DashboardDataProvider,
     InAppBrowser,
-   
-    AppDataProvider
+    AppDataProvider,
+    SearchProvider,
+    TaskProvider
   ]
 })
 export class AppModule { }

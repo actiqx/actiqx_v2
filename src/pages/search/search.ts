@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { NavController, NavParams, List, ModalController, ToastController, App } from 'ionic-angular';
+import { SearchProvider } from '../../providers/search/search';
 
 /**
  * Generated class for the SearchPage page.
@@ -13,12 +14,35 @@ import { NavController, NavParams } from 'ionic-angular';
   templateUrl: 'search.html',
 })
 export class SearchPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  @ViewChild('searchList', { read: List }) searchList: List;
+  queryText = '';
+  segment = 'all';
+  groups: any = [];
+  constructor(public navCtrl: NavController,
+    public app: App,
+    public navParams: NavParams,
+    public modalCtrl: ModalController,
+    public toastCtrl: ToastController,
+    public searchData: SearchProvider
+  ) {
   }
 
+
   ionViewDidLoad() {
-    console.log('ionViewDidLoad SearchPage');
+  this.app.setTitle('Search');
+  this.updateSearch();
+  }
+  ionViewWillEnter(){
+   this.searchData.load().subscribe((data:any)=>{
+     if(data&&data.info){
+       this.groups=data;
+       
+     }
+   })
+  }
+  updateSearch() {
+    this.searchList&& this.searchList.closeSlidingItems();
+    this.searchData.getSearchList()
   }
 
 }

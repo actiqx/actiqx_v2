@@ -5,7 +5,7 @@ import {Observable} from 'rxjs/Observable';
 
 import 'rxjs/add/operator/map';
 
-import { ApplicationConfig, MY_CONFIG_TOKEN, MY_CONFIG } from '../../util/app-Config';
+
 
 /*
   Generated class for the AppDataProvider provider.
@@ -18,9 +18,9 @@ export enum Action { QueryStart, QueryStop };
 export class AppDataProvider {
   process: EventEmitter<any> = new EventEmitter<any>();
   authFailed: EventEmitter<any> = new EventEmitter<any>();
-  getApiUrl : string;
-  constructor(public _http: Http,@Inject(MY_CONFIG_TOKEN) private config: ApplicationConfig) {
-    this.getApiUrl = config.apiEndpoint;
+  
+  constructor(public _http: Http) {
+    
   }
   private _buildAuthHeader(): string {
     return localStorage.getItem("authToken");
@@ -59,7 +59,7 @@ export class AppDataProvider {
       requestOptions.headers = new Headers();
     }
 
-    requestOptions.headers.set("Authorization", this._buildAuthHeader())
+    requestOptions.headers.set("Authorization",'Bearer '+ this._buildAuthHeader())
 
     return Rx.Observable.create((observer) => {
       this.process.next(Action.QueryStart);

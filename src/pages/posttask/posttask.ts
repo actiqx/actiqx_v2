@@ -17,7 +17,7 @@ import { NgForm } from '@angular/forms';
 })
 export class PosttaskPage {
   posttask:Posttask={info:"",categories:"",address:{place:'',latitude:'',longitude:''},myDate:''};
-  submitted:false;
+  submitted=false;
   constructor(public navCtrl: NavController, public navParams: NavParams,private ModalCtrl:ModalController) {
     
   }
@@ -34,6 +34,11 @@ export class PosttaskPage {
     modal.present();
   }
   onPosttask(form:NgForm){
+    this.submitted=true;
+    if(form.valid){
+      
+    }
+
 
   }
 

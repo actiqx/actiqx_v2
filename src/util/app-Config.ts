@@ -5,12 +5,18 @@ import { InjectionToken } from "@angular/core";
 export interface ApplicationConfig {
     appName: string;
     apiEndpoint: string;
+    login:string,
+    search:string;
+    posttask:string;
 }
 
 // Configuration values for our app
 export const MY_CONFIG: ApplicationConfig = {
     appName: 'Actiqx',
-    apiEndpoint: 'task-management-dev.us-east-1.elasticbeanstalk.com'
+    apiEndpoint: 'task-management-dev.us-east-1.elasticbeanstalk.com',
+    login:'/auth/local',
+    search:'/api/tasks',
+    posttask:'/api/tasks'
 };
 
 // Create a config token to avoid naming conflicts
